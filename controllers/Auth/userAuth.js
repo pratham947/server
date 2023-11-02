@@ -29,19 +29,22 @@ export const userAuthentication = async (req, res) => {
 
   // generating a token
   const token = generateToken(newUser);
-  res.status(201).json({ token });
+  res.status(201).json({ success: false, token });
 };
 
-export const loggedUser = async (req,res) => {
+export const loggedUser = async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
   if (user) {
     const checkPassword = await bcrypt.compare(password, user.password);
     if (checkPassword)
       return res.status(201).json({ token: generateToken(user) });
-    else return res.status(400).send("email or passord is wrong");
+    else
+      return res
+        .status(400)
+        .json({ success: false, message: "email or passord is wrong" });
   }
-  res.status(400).send("email or passord is wrong");
+  res
+    .status(400)
+    .json({ success: false, message: "email or passord is wrong" });
 };
-
-
