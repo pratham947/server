@@ -21,7 +21,7 @@ export const userAuthentication = async (req, res) => {
   // if user already exist then return
   if (user)
     return res
-      .status(401)
+      .status(201)
       .json({ success: false, message: "user already exist" });
 
   let { firstName, lastName, email, password } = req.body;
