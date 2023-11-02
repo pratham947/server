@@ -10,13 +10,19 @@ const generateToken = (newUser) => {
 export const userAuthentication = async (req, res) => {
   const body = req.body;
   const validation = Authenticate.safeParse(body);
-  if (!validation.success) return res.status(400).send(validation.error.errors);
+  if (!validation.success)
+    return res
+      .status(400)
+      .json({ success: false, message: "some error occured from you side" });
 
   //   check user already exist in the database
   let user = await User.findOne({ email: body.email });
 
   // if user already exist then return
-  if (user) return res.status(401).json({ message: "user already exist" });
+  if (user)
+    return res
+      .status(401)
+      .json({ success: false, message: "user already exist" });
 
   let { firstName, lastName, email, password } = req.body;
 
@@ -29,7 +35,11 @@ export const userAuthentication = async (req, res) => {
 
   // generating a token
   const token = generateToken(newUser);
-  res.status(201).json({ success: false, token });
+  res.status(201).json({
+    success: true,
+    token,
+    message: "your account is created successfully",
+  });
 };
 
 export const loggedUser = async (req, res) => {
