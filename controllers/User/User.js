@@ -8,18 +8,11 @@ const getUserFromToken = async (token) => {
   return user;
 };
 
-export const getUser = async (req, res) => {
-  const { token } = req.body;
-  if (!token)
-    return res
-      .status(201)
-      .json({ success: false, message: "please send the token" });
-  const user = await getUserFromToken(token);
-  if (user) {
-    return res.status(201).json({ success: true, user });
-  }
-  res.status(201).json({ success: false, message: "User not exist" });
-};
+export const getUser = async (req,res) =>{
+  const {token} = req.body;
+  const data= jwt.verify(token,process.env.JWT_SECRET)
+  return data;
+}
 
 export const updateUser = async (req, res) => {
   const { token } = req.body;
