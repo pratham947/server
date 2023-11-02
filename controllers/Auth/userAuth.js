@@ -38,6 +38,7 @@ export const userAuthentication = async (req, res) => {
   res.status(201).json({
     success: true,
     token,
+    newUser,
     message: "your account is created successfully",
   });
 };
@@ -48,13 +49,15 @@ export const loggedUser = async (req, res) => {
   if (user) {
     const checkPassword = await bcrypt.compare(password, user.password);
     if (checkPassword)
-      return res.status(201).json({ token: generateToken(user) });
+      return res
+        .status(201)
+        .json({ success: true, token: generateToken(user) });
     else
       return res
-        .status(400)
+        .status(201)
         .json({ success: false, message: "email or passord is wrong" });
   }
   res
-    .status(400)
+    .status(201)
     .json({ success: false, message: "email or passord is wrong" });
 };
