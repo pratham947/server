@@ -3,9 +3,8 @@ import jwt from "jsonwebtoken";
 
 export const getUser = (req, res) => {
   const { token } = req.body;
-  console.log("called");
   const verify = jwt.verify(token, process.env.JWT_SECRET);
-  console.log(verify);
+  return res.status(201).send(verify);
 };
 
 export const updateUser = async (req, res) => {
