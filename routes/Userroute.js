@@ -3,7 +3,11 @@ import {
   loggedUser,
   userAuthentication,
 } from "../controllers/Auth/userAuth.js";
-import { deleteAccount, getUser, updateUser } from "../controllers/User/User.js";
+import {
+  deleteAccount,
+  getUser,
+  updateUser,
+} from "../controllers/User/User.js";
 
 const router = express.Router();
 
@@ -12,8 +16,8 @@ router.post("/authenticate", userAuthentication);
 router.post("/logged", loggedUser);
 
 // Crud user
-router.get("/getUser", getUser);
-router.post("/updateuser",updateUser);
-router.delete("/deleteuser",deleteAccount);
+router.post("/getUser", getUser);
+router.post("/updateuser", updateUser);
+router.delete("/deleteuser", deleteAccount);
 
 export default router;

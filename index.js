@@ -31,12 +31,11 @@ dotenv.config();
 connectToDb();
 
 // routing
-app.get("/", (req,res) => {
+app.get("/", (req, res) => {
   res.send("hello");
 });
 
-+
-app.use("/api/user", userRoute);
++app.use("/api/user", userRoute);
 app.use("/api/admin", adminRoute);
 
 app.listen(process.env.PORT, () => {
